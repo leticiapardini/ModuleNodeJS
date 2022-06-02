@@ -1,0 +1,1 @@
+Você esta lendo o texto que está no arquivo text.txt!!

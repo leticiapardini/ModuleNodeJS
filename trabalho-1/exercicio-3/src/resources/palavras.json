@@ -1,0 +1,8 @@
+{
+  "comida" : ["pão", "arroz", "ovo", "farofa", "chocolate"],
+  "cidade" : ["ubatuba", "iacri", "bauru", "limeira", "sorocaba"],
+  "animais": ["cachorro", "gato", "onça", "furão", "papagaio"],
+  "marcas": ["nyke", "adidas", "hering", "sansung", "xiaomi"],
+  "Linguagens de Programação" : ["javascript", "pyton", "ruby", "c#", "rust"]
+}
+
