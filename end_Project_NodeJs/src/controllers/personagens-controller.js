@@ -1,3 +1,4 @@
+
 const Personagens = require('../models/personagens');
 
 class PersonagensController {
@@ -19,32 +20,34 @@ class PersonagensController {
       res.writeHead(200);
       res.end(JSON.stringify(personagens));
     } catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
   
   static async listPersonagensPorNome(req, res) {
     try {
       const { name } = req.queryParams;
-      if (!name || typeof (name) !== 'string') {
+       if (!name) {
         throw {
-          statusCode: 404,
-          message: 'Name must be text type and is required'
-        }
-      }
-      const options = {
+           statusCode: 404,
+           message: 'Name must be is required'
+         }
+       }
+      
+       const options = {
         params: {
           name: name
         }
       }
       const personagensName = await Personagens.listPersonagens(options);
+      
       res.writeHead(200);
       res.end(JSON.stringify(personagensName));
 
     } catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
 
@@ -67,8 +70,8 @@ class PersonagensController {
       res.end(JSON.stringify(personagensStatus));
     }
     catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
 
@@ -91,8 +94,8 @@ class PersonagensController {
       res.end(JSON.stringify(personagensGenero));
 
     } catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
 
@@ -109,15 +112,15 @@ class PersonagensController {
       res.writeHead(200);
       res.end(JSON.stringify(personagensId));
     } catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
 
   static async listPersonagensPorEspecie(req, res) {
     try {
       const { species } = req.queryParams;
-      if (!species || typeof (species) !== 'string') {
+      if (!species) {
         throw {
           statusCode: 404,
           message: 'Species must be text type'
@@ -133,8 +136,8 @@ class PersonagensController {
       res.end(JSON.stringify(personagensSpecies));
 
     } catch (error) {
-      res.writeHead(error.statusCode || 500)
-      res.end(JSON.stringify({ message: error.message || 'Server Error' }))
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
     }
   }
 }
