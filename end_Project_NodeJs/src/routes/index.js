@@ -12,6 +12,8 @@ module.exports = {
     PersonagensController.listPersonagensPorGenero,
   "/rickandmorty/personagens-species":
     PersonagensController.listPersonagensPorEspecie,
+    "/rickandmorty/personagens-origem":
+    PersonagensController.listPersonagensPorOrigem,
   "/rickandmorty/locais-page": LocaisController.listLocaisPage,
   "/rickandmorty/locais-tipo": LocaisController.listLocaisPorTipo,
   "/rickandmorty/locais-dimensao": LocaisController.listLocaisPorDimensao,
