@@ -27,17 +27,16 @@ class EpisodiosController {
   static async listEpisodioPorNome(req, res) {
     try {
       const { name } = req.queryParams;
-      if (!name) {
-        throw {
-          statusCode: 404,
-          message: "Name must be text type and is required",
-        };
-      }
       const options = {
         params: {
-          name: name,
+          name: name || undefined,
         },
       };
+      if (name === undefined) {
+        res.writeHead(400);
+        res.end('name is required');
+        return
+      }
       const episodiosName = await Episodios.listEpisodios(options);
       res.writeHead(200);
       res.end(JSON.stringify(episodiosName));

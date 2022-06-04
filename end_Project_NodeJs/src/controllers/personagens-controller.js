@@ -1,4 +1,3 @@
-
 const Personagens = require('../models/personagens');
 
 class PersonagensController {
@@ -19,6 +18,29 @@ class PersonagensController {
       const personagens = await Personagens.listPersonagens(options);
       res.writeHead(200);
       res.end(JSON.stringify(personagens));
+    } catch (error) {
+      res.writeHead(error.response.status || 500)
+      res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
+    }
+  }
+
+  static async listPersonagensPorOrigem(req, res) {
+    try {
+      const { origin } = req.queryParams;
+      const personagensOrigem = await Personagens.listPersonagensPorOrigem()
+      const resultados = personagensOrigem['results']
+     
+      const filtro = resultados.filter((char) => {
+        return char['origin']['name'] == origin
+      })
+
+      if(filtro.length === 0) {
+        res.writeHead(400);
+        res.end('No search answer found, enter a valid name, origin name is required');
+        return
+      }
+      res.writeHead(200);
+      res.end(JSON.stringify(filtro));
     } catch (error) {
       res.writeHead(error.response.status || 500)
       res.end(JSON.stringify({ message: error.response.data['error'] || 'Server Error' }))
@@ -141,6 +163,6 @@ class PersonagensController {
     }
   }
 }
-
-
+  
+       
 module.exports = PersonagensController;
